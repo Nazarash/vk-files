@@ -10,5 +10,7 @@ import UIKit
 
 protocol AuthDelegate: AnyObject {
     
+    func authorizationFinished()
+    
     func presentAuth(viewController: UIViewController)
 }

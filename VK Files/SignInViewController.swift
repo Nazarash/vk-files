@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VKSdkFramework
 
 class SignInViewController: UIViewController {
     
@@ -14,12 +15,12 @@ class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        authService = AppDelegate.shared().authService
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        authService = appDelegate.authService
     }
 
     @IBAction func signInAction(_ sender: Any) {
-        authService.wakeUpSession()
+        VKSdk.authorize(authService.scope)
     }
     
     

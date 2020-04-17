@@ -12,8 +12,8 @@ import VKSdkFramework
 
 class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
-    private let appId = "7411023"
-    private let scope = ["offline", "docs"]
+    let appId = "7411023"
+    let scope = ["offline", "docs"]
     private let vkSDK: VKSdk
     
     weak var delegate: AuthDelegate?
@@ -21,25 +21,8 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     override init() {
         vkSDK = VKSdk.initialize(withAppId: appId)
         super.init()
-        print("vk sdk init")
         vkSDK.register(self)
         vkSDK.uiDelegate = self
-    }
-    
-    func wakeUpSession() {
-        VKSdk.wakeUpSession(scope) { (state, error) in
-            switch state {
-            case .initialized:
-                print("Initialized")
-                VKSdk.authorize(self.scope)
-            case .authorized:
-                print("Authorized")
-                VKSdk.forceLogout()
-                print("Log out")
-            default:
-                print("Error")
-            }
-        }
     }
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
@@ -49,6 +32,7 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         } else {
             print("No token")
         }
+        delegate?.authorizationFinished()
     }
     
     func vkSdkUserAuthorizationFailed() {

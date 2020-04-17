@@ -10,7 +10,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="AX2-ZS-2dA">
             <objects>
-                <viewController storyboardIdentifier="SignInVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5gO-Py-Kac" customClass="SignInViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5gO-Py-Kac" customClass="SignInViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hs3-HZ-m4Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,7 +36,85 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Dl-4A-VzS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639.13043478260875" y="-220.3125"/>
+            <point key="canvasLocation" x="-622" y="-220"/>
+        </scene>
+        <!--My Files-->
+        <scene sceneID="Wic-xz-tda">
+            <objects>
+                <viewController storyboardIdentifier="MainVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jna-Ng-Tlw" customClass="MainViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jW6-8G-pUW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzI-90-KOX">
+                                <rect key="frame" x="188.5" y="437.5" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VzI-90-KOX" firstAttribute="centerY" secondItem="jW6-8G-pUW" secondAttribute="centerY" id="BL1-h0-zZB"/>
+                            <constraint firstItem="VzI-90-KOX" firstAttribute="centerX" secondItem="jW6-8G-pUW" secondAttribute="centerX" id="cDZ-lX-eLL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Zfv-0K-4Af"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Files" image="doc.fill" catalog="system" selectedImage="doc.fill" id="WSj-Zj-NNB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IpH-EY-ABy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="59" y="510"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="vA1-Yc-G3m">
+            <objects>
+                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tq2-eT-bfR" customClass="SettingsViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aqp-5k-Ql7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkh-nB-3Ov">
+                                <rect key="frame" x="181" y="433" width="52" height="30"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="logOutAction:" destination="tq2-eT-bfR" eventType="touchUpInside" id="LJd-wK-7H3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wkh-nB-3Ov" firstAttribute="centerY" secondItem="aqp-5k-Ql7" secondAttribute="centerY" id="Zsf-zy-312"/>
+                            <constraint firstItem="wkh-nB-3Ov" firstAttribute="centerX" secondItem="aqp-5k-Ql7" secondAttribute="centerX" id="yVg-XC-fIh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rSj-a2-3Lc"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="1" systemItem="more" id="bxm-oV-vC9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4qy-1l-l98" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="715.94202898550725" y="509.59821428571428"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="UJC-ez-QFs">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="rN2-OK-umm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pg9-dY-HGC">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Jna-Ng-Tlw" kind="relationship" relationship="viewControllers" id="2Vg-m5-1WM"/>
+                        <segue destination="tq2-eT-bfR" kind="relationship" relationship="viewControllers" id="XbF-ez-7tn"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ICM-e5-n4h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="388" y="-220"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="doc.fill" catalog="system" width="56" height="64"/>
+    </resources>
 </document>

@@ -14,11 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
     
     var window: UIWindow?
     var authService: AuthService!
-    
-    static func shared() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -28,8 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
         authService = AuthService()
         authService.delegate = self
         
-        let startVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC") as? SignInViewController
-        window?.rootViewController = startVC
+        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
+        self.window?.rootViewController = tabBarController
+        
+        VKSdk.wakeUpSession(authService.scope) { (state, error) in
+            switch state {
+            case .initialized:
+                print("Ready to authorize")
+                let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
+                self.window?.rootViewController = signInVC
+            case .authorized:
+                print("Already authorized")
+            default:
+                print(error?.localizedDescription ?? "Error without description")
+            }
+        }
         
         return true
     }
@@ -37,6 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         VKSdk.processOpen(url, fromApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue)
         return true
+    }
+    
+    func authorizationFinished() {
+        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
+        self.window?.rootViewController = tabBarController
     }
     
     func presentAuth(viewController: UIViewController) {
