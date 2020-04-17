@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */; };
-		0AF76FC42448FAF400E75A1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FC32448FAF400E75A1C /* ViewController.swift */; };
+		0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FC32448FAF400E75A1C /* SignInViewController.swift */; };
 		0AF76FC72448FAF400E75A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF76FC52448FAF400E75A1C /* Main.storyboard */; };
 		0AF76FC92448FAF800E75A1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AF76FC82448FAF800E75A1C /* Assets.xcassets */; };
 		0AF76FCC2448FAF800E75A1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF76FCA2448FAF800E75A1C /* LaunchScreen.storyboard */; };
 		0AF76FD62449044300E75A1C /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF76FD52449044200E75A1C /* VKSdkFramework.framework */; };
 		0AF76FD72449044300E75A1C /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF76FD52449044200E75A1C /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0AF76FDA24490B4200E75A1C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FD924490B4200E75A1C /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,12 +34,13 @@
 /* Begin PBXFileReference section */
 		0AF76FBC2448FAF400E75A1C /* VK Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VK Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0AF76FC32448FAF400E75A1C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0AF76FC32448FAF400E75A1C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		0AF76FC62448FAF400E75A1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0AF76FC82448FAF800E75A1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AF76FCB2448FAF800E75A1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AF76FCD2448FAF800E75A1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF76FD52449044200E75A1C /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
+		0AF76FD924490B4200E75A1C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,11 +76,12 @@
 			isa = PBXGroup;
 			children = (
 				0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */,
-				0AF76FC32448FAF400E75A1C /* ViewController.swift */,
+				0AF76FC32448FAF400E75A1C /* SignInViewController.swift */,
 				0AF76FC52448FAF400E75A1C /* Main.storyboard */,
 				0AF76FC82448FAF800E75A1C /* Assets.xcassets */,
 				0AF76FCA2448FAF800E75A1C /* LaunchScreen.storyboard */,
 				0AF76FCD2448FAF800E75A1C /* Info.plist */,
+				0AF76FD924490B4200E75A1C /* AuthService.swift */,
 			);
 			path = "VK Files";
 			sourceTree = "<group>";
@@ -185,7 +188,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AF76FC42448FAF400E75A1C /* ViewController.swift in Sources */,
+				0AF76FDA24490B4200E75A1C /* AuthService.swift in Sources */,
+				0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */,
 				0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

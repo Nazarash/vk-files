@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignInViewController.swift
 //  VK Files
 //
 //  Created by Дмитрий on 16.04.2020.
@@ -8,13 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+
     }
 
-
+    @IBAction func signInAction(_ sender: Any) {
+        print("auth start")
+    }
+    
 }
 
