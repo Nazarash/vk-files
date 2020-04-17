@@ -16,6 +16,8 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     private let scope = ["offline", "docs"]
     private let vkSDK: VKSdk
     
+    weak var delegate: AuthDelegate?
+    
     override init() {
         vkSDK = VKSdk.initialize(withAppId: appId)
         super.init()
@@ -24,8 +26,29 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         vkSDK.uiDelegate = self
     }
     
+    func wakeUpSession() {
+        VKSdk.wakeUpSession(scope) { (state, error) in
+            switch state {
+            case .initialized:
+                print("Initialized")
+                VKSdk.authorize(self.scope)
+            case .authorized:
+                print("Authorized")
+                VKSdk.forceLogout()
+                print("Log out")
+            default:
+                print("Error")
+            }
+        }
+    }
+    
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
-        print("auth finished")
+        if result.token != nil {
+            print("Token:")
+            print(result.token.accessToken ?? "No string")
+        } else {
+            print("No token")
+        }
     }
     
     func vkSdkUserAuthorizationFailed() {
@@ -33,7 +56,7 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     }
     
     func vkSdkShouldPresent(_ controller: UIViewController!) {
-        print("should present")
+        delegate?.presentAuth(viewController: controller)
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {

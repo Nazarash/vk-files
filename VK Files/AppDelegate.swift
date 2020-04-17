@@ -10,20 +10,26 @@ import UIKit
 import VKSdkFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
     
     var window: UIWindow?
-    private var authService: AuthService!
+    var authService: AuthService!
+    
+    static func shared() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
+        authService = AuthService()
+        authService.delegate = self
+        
         let startVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC") as? SignInViewController
         window?.rootViewController = startVC
-        
-        authService = AuthService()
         
         return true
     }
@@ -31,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         VKSdk.processOpen(url, fromApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue)
         return true
+    }
+    
+    func presentAuth(viewController: UIViewController) {
+        window?.rootViewController?.present(viewController, animated: true, completion: nil)
     }
     
 }

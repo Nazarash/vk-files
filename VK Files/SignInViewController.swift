@@ -9,16 +9,19 @@
 import UIKit
 
 class SignInViewController: UIViewController {
+    
+    private var authService: AuthService!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        authService = AppDelegate.shared().authService
     }
 
     @IBAction func signInAction(_ sender: Any) {
-        print("auth start")
+        authService.wakeUpSession()
     }
+    
     
 }
 
