@@ -11,16 +11,13 @@ import VKSdkFramework
 
 class SignInViewController: UIViewController {
     
-    private var authService: AuthService!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        authService = appDelegate.authService
     }
 
     @IBAction func signInAction(_ sender: Any) {
-        VKSdk.authorize(authService.scope)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        VKSdk.authorize(appDelegate.authService.scope)
     }
     
     

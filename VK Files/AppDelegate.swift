@@ -23,19 +23,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
         authService = AuthService()
         authService.delegate = self
         
-        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
-        self.window?.rootViewController = tabBarController
+        let loadingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LoadingVC")
+        window?.rootViewController = loadingVC // Blank VC used only to wait for wakeUpSession completes
         
         VKSdk.wakeUpSession(authService.scope) { (state, error) in
-            switch state {
-            case .initialized:
-                print("Ready to authorize")
+            if state == .authorized {
+                let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
+                self.window?.rootViewController = tabBarController
+            } else {
                 let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
                 self.window?.rootViewController = signInVC
-            case .authorized:
-                print("Already authorized")
-            default:
-                print(error?.localizedDescription ?? "Error without description")
+                if state == .error {
+                    print(error?.localizedDescription ?? "Error without description")
+                }
             }
         }
         
