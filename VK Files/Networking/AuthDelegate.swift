@@ -12,5 +12,7 @@ protocol AuthDelegate: AnyObject {
     
     func authorizationFinished()
     
+    func authorizationFailed()
+    
     func presentAuth(viewController: UIViewController)
 }

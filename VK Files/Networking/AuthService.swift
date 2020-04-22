@@ -27,16 +27,14 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if result.token != nil {
-            print("Token:")
-            print(result.token.accessToken ?? "No string")
+            delegate?.authorizationFinished()
         } else {
-            print("No token")
+            delegate?.authorizationFailed()
         }
-        delegate?.authorizationFinished()
     }
     
     func vkSdkUserAuthorizationFailed() {
-        print("auth failed")
+        delegate?.authorizationFailed()
     }
     
     func vkSdkShouldPresent(_ controller: UIViewController!) {
@@ -44,6 +42,6 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
-        print("captcha")
+        print("captcha!")
     }
 }

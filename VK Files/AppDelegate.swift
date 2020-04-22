@@ -10,7 +10,7 @@ import UIKit
 import VKSdkFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var authService: AuthService!
@@ -47,14 +47,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthDelegate {
         return true
     }
     
+    
+    
+}
+
+extension AppDelegate: AuthDelegate {
     func authorizationFinished() {
         let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
         self.window?.rootViewController = tabBarController
     }
     
+    func authorizationFailed() {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong with the authorization. Try again.", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        self.window?.rootViewController?.present(alert, animated: true)
+    }
+    
     func presentAuth(viewController: UIViewController) {
         window?.rootViewController?.present(viewController, animated: true, completion: nil)
     }
+    
     
 }
 

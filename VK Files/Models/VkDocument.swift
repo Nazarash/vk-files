@@ -19,7 +19,7 @@ enum DocType: Int {
     case other
 }
 
-class VkDocument {
+struct VkDocument {
     
     let id: Int
     let title: String
@@ -28,6 +28,40 @@ class VkDocument {
     let url: String
     let creationDate: Date
     let type: DocType
+    
+    var systemImageName: String {
+        switch type {
+        case .textDoc:
+            return "doc.text.fill"
+        case .archive:
+            return "archivebox.fill"
+        case .gif:
+            return "play.rectangle.fill"
+        case .image:
+            return "photo.fill"
+        case .audio:
+            return "music.note"
+        case .video:
+            return "film.fill"
+        case .book:
+            return "book.fill"
+        default:
+            return "questionmark.square.fill"
+        }
+    }
+    
+    var approximateSize: String {
+        switch size {
+        case 1 ..< 1<<10:
+            return  "\(size) B"
+        case 1<<10 ..< 1<<20:
+            return  "\(size / 1<<10) KB"
+        default:
+            return  "\(size / 1<<20) MB"
+        }
+    }
+    
+    
     
     init(_ id: Int, _ title: String, _ size: Int, _ ext: String, _ url: String, _ creationDate: Int, _ type: Int) {
         self.id = id
