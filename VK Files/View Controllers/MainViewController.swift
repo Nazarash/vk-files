@@ -23,10 +23,17 @@ class MainViewController: UIViewController {
         
 
         self.api = QueryService()
-        api.getDocuments() { docs in
-            self.documents = docs ?? []
-            self.tableView.reloadData()
-            print(self.documents.count)
+        api.getDocuments() { docs, errorMessage in
+            if !errorMessage.isEmpty {
+                self.tableView.isHidden = true
+                let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            } else if let docs = docs {
+                self.tableView.isHidden = false
+                self.documents = docs
+                self.tableView.reloadData()
+            }
         }
     }
     

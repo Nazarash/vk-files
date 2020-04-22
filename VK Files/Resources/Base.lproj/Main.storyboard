@@ -175,7 +175,16 @@
                     <view key="view" contentMode="scaleToFill" id="afy-vn-orP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_surf-education" translatesAutoresizingMaskIntoConstraints="NO" id="jrs-9F-9Bp">
+                                <rect key="frame" x="127" y="368" width="160" height="160"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jrs-9F-9Bp" firstAttribute="centerX" secondItem="afy-vn-orP" secondAttribute="centerX" id="15E-w0-9tL"/>
+                            <constraint firstItem="jrs-9F-9Bp" firstAttribute="centerY" secondItem="afy-vn-orP" secondAttribute="centerY" id="AkC-Wz-5Th"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="v7y-Kf-qXD"/>
                     </view>
                 </viewController>
@@ -206,5 +215,6 @@
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="64" height="48"/>
         <image name="doc.fill" catalog="system" width="56" height="64"/>
+        <image name="logo_surf-education" width="160" height="160"/>
     </resources>
 </document>

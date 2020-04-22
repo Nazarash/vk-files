@@ -133,8 +133,8 @@
 		0AF76FBE2448FAF400E75A1C /* VK Files */ = {
 			isa = PBXGroup;
 			children = (
-				0A3EE1E62450941400D0CBC6 /* Cells */,
 				0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */,
+				0A3EE1E62450941400D0CBC6 /* Cells */,
 				0A92CB37244B2B2200418B0F /* View Controllers */,
 				0A92CB3A244C407600418B0F /* Models */,
 				0A92CB38244BB36200418B0F /* Networking */,
