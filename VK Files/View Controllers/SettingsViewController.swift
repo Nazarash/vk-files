@@ -9,13 +9,20 @@
 import UIKit
 import VKSdkFramework
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UITableViewController {
+    
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var userNameLabel: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+    
     
     @IBAction func logOutAction(_ sender: Any) {
         VKSdk.forceLogout()
