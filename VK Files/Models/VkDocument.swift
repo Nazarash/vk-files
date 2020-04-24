@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DocType: Int {
+enum DocType: Int, Codable {
     case textDoc = 1
     case archive
     case gif
@@ -60,16 +60,17 @@ struct VkDocument {
             return  "\(size / 1<<20) MB"
         }
     }
-    
-    
-    
-    init(_ id: Int, _ title: String, _ size: Int, _ ext: String, _ url: String, _ creationDate: Int, _ type: Int) {
-        self.id = id
-        self.title = title
-        self.size = size
-        self.ext = ext
-        self.url = url
-        self.creationDate = Date(timeIntervalSince1970: TimeInterval(creationDate))
-        self.type = DocType(rawValue: type) ?? .other
+}
+
+extension VkDocument: Codable {
+    enum CodingKeys : String, CodingKey {
+        case id
+        case title
+        case size
+        case ext
+        case url
+        case creationDate = "date"
+        case type
     }
 }
+

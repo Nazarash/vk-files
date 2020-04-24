@@ -16,13 +16,27 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
+    var queryService: QueryService!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        queryService = QueryService()
+        print("E")
+        queryService.getUser() { result in
+            switch result {
+            case .success(let user):
+                self.showUserInfo(for: user)
+            case .failure(let error):
+                self.showErrorAlert(with: error.localizedDescription)
+            }
+        }
     }
     
+    func showUserInfo(for user: User) {
+        userNameLabel.text = user.firstName + " " + user.lastName
+        profileImageView.loadImage(from: user.photoURL)
+    }
     
     @IBAction func logOutAction(_ sender: Any) {
         VKSdk.forceLogout()

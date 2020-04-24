@@ -48,7 +48,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-bU-LlQ">
                                 <rect key="frame" x="0.0" y="64" width="414" height="749"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MainDocumentCell" rowHeight="80" id="wd6-MP-uv3" customClass="MainDocumentCell" customModule="VK_Files" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
@@ -80,7 +79,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="d4s-sK-Nfi" firstAttribute="leading" secondItem="uTq-oc-xxV" secondAttribute="trailing" constant="20" id="3lN-HA-aUV"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="3Gf-mO-KGk" secondAttribute="trailing" constant="50" id="8Ah-td-SYj"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="3Gf-mO-KGk" secondAttribute="trailing" constant="30" id="8Ah-td-SYj"/>
                                                 <constraint firstItem="3Gf-mO-KGk" firstAttribute="top" secondItem="6UI-mK-Ry2" secondAttribute="topMargin" constant="5" id="9tL-ZT-BaF"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="d4s-sK-Nfi" secondAttribute="bottom" constant="12" id="Egq-tQ-omN"/>
                                                 <constraint firstItem="uTq-oc-xxV" firstAttribute="centerY" secondItem="6UI-mK-Ry2" secondAttribute="centerY" id="Roj-98-6CT"/>
@@ -122,18 +121,17 @@
         <scene sceneID="uze-I6-DUg">
             <objects>
                 <tableViewController id="Mj6-b4-ORm" customClass="SettingsViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="3Ce-PT-UqI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="insetGrouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="3Ce-PT-UqI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection id="aDD-VH-MDu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="400" id="9bc-gF-NJ7">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="400"/>
+                                        <rect key="frame" x="20" y="18" width="374" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9bc-gF-NJ7" id="7QH-lD-oiM">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="400"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jpm-x6-Tbe">
@@ -145,9 +143,15 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gu1-zd-PTP">
                                                     <rect key="frame" x="107" y="100.5" width="200" height="199"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="200" id="g96-hg-O2C"/>
                                                         <constraint firstAttribute="width" constant="200" id="nIy-8D-pNJ"/>
-                                                        <constraint firstAttribute="height" constant="200" id="tsl-4I-luo"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="100"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -165,10 +169,10 @@
                             <tableViewSection id="Ctp-Tu-VXa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="Jyz-17-xYT">
-                                        <rect key="frame" x="0.0" y="454" width="414" height="50"/>
+                                        <rect key="frame" x="20" y="454" width="374" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jyz-17-xYT" id="P8B-5S-B31">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkh-nB-3Ov">
@@ -182,7 +186,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wkh-nB-3Ov" secondAttribute="trailing" constant="300" id="Aza-Mn-AKm"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wkh-nB-3Ov" secondAttribute="trailing" constant="250" id="Aza-Mn-AKm"/>
                                                 <constraint firstItem="wkh-nB-3Ov" firstAttribute="leading" secondItem="P8B-5S-B31" secondAttribute="leading" constant="30" id="dx2-OP-9hv"/>
                                                 <constraint firstItem="wkh-nB-3Ov" firstAttribute="centerY" secondItem="P8B-5S-B31" secondAttribute="centerY" id="zQB-aS-PP8"/>
                                             </constraints>
@@ -225,10 +229,10 @@
             </objects>
             <point key="canvasLocation" x="388" y="-220"/>
         </scene>
-        <!--View Controller-->
+        <!--Loading View Controller-->
         <scene sceneID="OZF-kn-QQ9">
             <objects>
-                <viewController storyboardIdentifier="LoadingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="drJ-qE-9Pp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadingVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="drJ-qE-9Pp" customClass="LoadingViewController" customModule="VK_Files" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afy-vn-orP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
