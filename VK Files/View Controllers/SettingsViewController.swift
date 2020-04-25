@@ -22,7 +22,6 @@ class SettingsViewController: UITableViewController {
         super.viewDidLoad()
         
         queryService = QueryService()
-        print("E")
         queryService.getUser() { result in
             switch result {
             case .success(let user):
@@ -39,9 +38,11 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func logOutAction(_ sender: Any) {
+        let fileService = FileService()
+        fileService.removeAlldocuments()
+        
         VKSdk.forceLogout()
         let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = signInVC
+        AppDelegate.getInstance().window?.rootViewController = signInVC
     }
 }

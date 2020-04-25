@@ -21,6 +21,6 @@ extension User: Codable {
         case id
         case firstName
         case lastName
-        case photoURL = "photo200"
+        case photoURL = "photo400"
     }
 }

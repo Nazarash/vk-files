@@ -37,7 +37,7 @@ class QueryService {
     }
     
     func getUser(completion: @escaping Completion<User>) {
-        let parameters = ["fields": "photo_200"]
+        let parameters = ["fields": "photo_400"]
         let url = buildUrl(for: "users.get", parameters: parameters)
         makeRequest(path: url, type: User.self, completion: completion)
     }

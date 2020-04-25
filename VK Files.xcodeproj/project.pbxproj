@@ -15,6 +15,10 @@
 		0A6944772453126300E5A17D /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6944762453126300E5A17D /* JSONParser.swift */; };
 		0A6944792453141F00E5A17D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6944782453141F00E5A17D /* NetworkError.swift */; };
 		0A6944802453480900E5A17D /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69447F2453480900E5A17D /* UIImageView.swift */; };
+		0A74B1D024543CF80061A32D /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1CF24543CF80061A32D /* DownloadService.swift */; };
+		0A74B1D224543D600061A32D /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D124543D600061A32D /* Download.swift */; };
+		0A74B1D4245457D20061A32D /* DocumentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D3245457D20061A32D /* DocumentCellDelegate.swift */; };
+		0A74B1D72454B6F20061A32D /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D62454B6F20061A32D /* FileService.swift */; };
 		0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB2F2449D90100418B0F /* AuthDelegate.swift */; };
 		0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB31244A1C1100418B0F /* MainViewController.swift */; };
 		0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB33244A217E00418B0F /* SettingsViewController.swift */; };
@@ -53,6 +57,10 @@
 		0A6944762453126300E5A17D /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		0A6944782453141F00E5A17D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		0A69447F2453480900E5A17D /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		0A74B1CF24543CF80061A32D /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		0A74B1D124543D600061A32D /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		0A74B1D3245457D20061A32D /* DocumentCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCellDelegate.swift; sourceTree = "<group>"; };
+		0A74B1D62454B6F20061A32D /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		0A92CB2F2449D90100418B0F /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		0A92CB31244A1C1100418B0F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A92CB33244A217E00418B0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				0A3EE1E72450945800D0CBC6 /* MainDocumentCell.swift */,
+				0A74B1D3245457D20061A32D /* DocumentCellDelegate.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -96,6 +105,15 @@
 				0A69447F2453480900E5A17D /* UIImageView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0A74B1D52454B5BC0061A32D /* Data Managing */ = {
+			isa = PBXGroup;
+			children = (
+				0A6944762453126300E5A17D /* JSONParser.swift */,
+				0A74B1D62454B6F20061A32D /* FileService.swift */,
+			);
+			path = "Data Managing";
 			sourceTree = "<group>";
 		};
 		0A92CB37244B2B2200418B0F /* View Controllers */ = {
@@ -115,8 +133,8 @@
 				0AF76FD924490B4200E75A1C /* AuthService.swift */,
 				0A92CB2F2449D90100418B0F /* AuthDelegate.swift */,
 				0A92CB35244B20AC00418B0F /* QueryService.swift */,
-				0A6944762453126300E5A17D /* JSONParser.swift */,
 				0A6944782453141F00E5A17D /* NetworkError.swift */,
+				0A74B1CF24543CF80061A32D /* DownloadService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -137,6 +155,7 @@
 				0A92CB3B244C408D00418B0F /* VkDocument.swift */,
 				0A69446D24523AA600E5A17D /* VkResponse.swift */,
 				0A69447424530F0400E5A17D /* User.swift */,
+				0A74B1D124543D600061A32D /* Download.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +186,7 @@
 				0A92CB37244B2B2200418B0F /* View Controllers */,
 				0A92CB3A244C407600418B0F /* Models */,
 				0A92CB38244BB36200418B0F /* Networking */,
+				0A74B1D52454B5BC0061A32D /* Data Managing */,
 				0A92CB39244BB38F00418B0F /* Resources */,
 				0AF76FCD2448FAF800E75A1C /* Info.plist */,
 			);
@@ -279,12 +299,16 @@
 				0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */,
 				0A6944772453126300E5A17D /* JSONParser.swift in Sources */,
 				0A6944732453040100E5A17D /* UIViewController.swift in Sources */,
+				0A74B1D024543CF80061A32D /* DownloadService.swift in Sources */,
 				0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */,
+				0A74B1D4245457D20061A32D /* DocumentCellDelegate.swift in Sources */,
 				0A92CB3C244C408D00418B0F /* VkDocument.swift in Sources */,
 				0A92CB36244B20AC00418B0F /* QueryService.swift in Sources */,
 				0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */,
+				0A74B1D224543D600061A32D /* Download.swift in Sources */,
 				0A6944802453480900E5A17D /* UIImageView.swift in Sources */,
 				0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */,
+				0A74B1D72454B6F20061A32D /* FileService.swift in Sources */,
 				0A6944792453141F00E5A17D /* NetworkError.swift in Sources */,
 				0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */,
 				0A6944702452F13E00E5A17D /* LoadingViewController.swift in Sources */,

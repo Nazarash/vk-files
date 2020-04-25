@@ -28,7 +28,7 @@ class SignInViewController: UIViewController {
 extension SignInViewController: AuthDelegate {
     func authorizationFinished() {
         let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
-        UIApplication.shared.keyWindow?.rootViewController = tabBarController
+        AppDelegate.getInstance().window?.rootViewController = tabBarController
     }
     
     func authorizationFailed() {

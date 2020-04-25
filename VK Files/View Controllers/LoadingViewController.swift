@@ -19,10 +19,10 @@ class LoadingViewController: UIViewController {
         VKSdk.wakeUpSession(AppDelegate.getInstance().authService.scope) { (state, error) in
             if state == .authorized {
                 let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
-                UIApplication.shared.keyWindow?.rootViewController =  tabBarController
+                AppDelegate.getInstance().window?.rootViewController = tabBarController
             } else {
                 let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
-                UIApplication.shared.keyWindow?.rootViewController =  signInVC
+                AppDelegate.getInstance().window?.rootViewController = signInVC
                 if state == .error {
                     print(error?.localizedDescription ?? "Error without description")
                 }

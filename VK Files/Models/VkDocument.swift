@@ -19,15 +19,17 @@ enum DocType: Int, Codable {
     case other
 }
 
-struct VkDocument {
+class VkDocument: Codable {
     
     let id: Int
     let title: String
-    let size: Int
+    let size: Int64
     let ext: String
-    let url: String
+    let url: URL
     let creationDate: Date
     let type: DocType
+    
+    var downloadState = DownloadState.notDownloaded
     
     var systemImageName: String {
         switch type {
@@ -50,19 +52,16 @@ struct VkDocument {
         }
     }
     
-    var approximateSize: String {
-        switch size {
-        case 1 ..< 1<<10:
-            return  "\(size) B"
-        case 1<<10 ..< 1<<20:
-            return  "\(size / 1<<10) KB"
-        default:
-            return  "\(size / 1<<20) MB"
-        }
+    init(id: Int, title: String, size: Int64, ext: String, url: String, date: Int, type: Int) {
+        self.id = id
+        self.title = title
+        self.size = size
+        self.ext = ext
+        self.url = URL(string: url)!
+        self.creationDate = Date(timeIntervalSince1970: TimeInterval(date))
+        self.type = DocType.init(rawValue: type) ?? .other
     }
-}
-
-extension VkDocument: Codable {
+    
     enum CodingKeys : String, CodingKey {
         case id
         case title
