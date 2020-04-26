@@ -10,7 +10,6 @@ import Foundation
 
 class DownloadService {
     
-    
     let downloadsSession: URLSession
     
     var activeDownloads: [URL: Download] = [:]

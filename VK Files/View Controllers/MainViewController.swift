@@ -34,6 +34,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateContent()
+        tableView.reloadData()
     }
     
     func updateContent() {
@@ -97,6 +98,7 @@ class MainViewController: UIViewController {
         queryService.renameDocument(id: document.id, newName: newName) { result in
             switch result {
             case .success:
+                self.fileService.renameDocument(document, newName: newName)
                 self.updateContent()
                 self.tableView.reloadData()
             case .failure(let error):
@@ -116,6 +118,15 @@ class MainViewController: UIViewController {
                 self.showErrorAlert(with: error.localizedDescription)
             }
         }
+    }
+    
+    func showActivityVC(for document: VkDocument, at sourceView: UIView) {
+        let url = fileService.localFilePath(for: document)
+        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            activityVC.popoverPresentationController?.sourceView = sourceView
+        }
+        present(activityVC, animated: true)
     }
 }
 
@@ -156,29 +167,33 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        showActivityVC(for: documents[indexPath.row], at: tableView.cellForRow(at: indexPath)!)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return UIContextMenuConfiguration(identifier: "\(indexPath.row)" as NSString, previewProvider: nil) { _ in
             
-            let renameAction = UIAction(title: "Rename", image: UIImage(systemName: "pencil")) { _ in
+            let isDownloaded = self.documents[indexPath.row].downloadState == .downloaded
+            var actions =  [UIAction]()
+            
+            if isDownloaded {
+                actions.append(UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+                    self.showActivityVC(for: self.documents[indexPath.row], at: tableView.cellForRow(at: indexPath)!)
+                })
+            }
+            actions.append(UIAction(title: "Rename", image: UIImage(systemName: "pencil")) { _ in
                 self.showRenameDialog(for: self.documents[indexPath.row])
-            }
-            
-            let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) {_ in
-                self.showDeleteDialog(for: self.documents[indexPath.row])
-            }
-            
-            if self.documents[indexPath.row].downloadState == .downloaded {
-                let removeAction = UIAction(title: "Remove from storage", image: UIImage(systemName: "xmark")) { _ in
+            })
+            if isDownloaded {
+                actions.append(UIAction(title: "Remove from storage", image: UIImage(systemName: "xmark")) { _ in
                     self.fileService.removeDocument(self.documents[indexPath.row])
-                    DispatchQueue.main.async {
-                        tableView.reloadData()
-                    }
-                }
-                return UIMenu(title: "", image: nil, children: [renameAction, removeAction, deleteAction])
+                    DispatchQueue.main.async { tableView.reloadData() }
+                })
             }
-            return UIMenu(title: "", image: nil, children: [renameAction, deleteAction])
+            actions.append(UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) {_ in
+                self.showDeleteDialog(for: self.documents[indexPath.row])
+            })
+            return UIMenu(title: "", image: nil, children: actions)
         }
     }
 }

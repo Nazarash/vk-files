@@ -17,6 +17,7 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     
     var queryService: QueryService!
+    var fileService: FileService!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class SettingsViewController: UITableViewController {
                 self.showErrorAlert(with: error.localizedDescription)
             }
         }
+        fileService = FileService()
     }
     
     func showUserInfo(for user: User) {
@@ -37,8 +39,12 @@ class SettingsViewController: UITableViewController {
         profileImageView.loadImage(from: user.photoURL)
     }
     
+    
+    @IBAction func clearStorageAction(_ sender: Any) {
+        fileService.removeAlldocuments()
+    }
+    
     @IBAction func logOutAction(_ sender: Any) {
-        let fileService = FileService()
         fileService.removeAlldocuments()
         
         VKSdk.forceLogout()

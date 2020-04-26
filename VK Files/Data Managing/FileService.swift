@@ -14,24 +14,38 @@ class FileService {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     func localFilePath(for document: VkDocument) -> URL {
-        return documentsPath.appendingPathComponent(document.title)
+        return localFilePath(for: document.title)
+    }
+    private func localFilePath(for fileName: String) -> URL {
+        documentsPath.appendingPathComponent(fileName)
     }
     
     func copyToDocuments(from location: URL, document: VkDocument) {
-        let destinationURL = localFilePath(for: document)
+        var destinationURL = localFilePath(for: document)
         try? fileManager.removeItem(at: destinationURL)
         do {
             try fileManager.copyItem(at: location, to: destinationURL)
+            var resourceValues = URLResourceValues()
+            resourceValues.isExcludedFromBackup = true
+            try destinationURL.setResourceValues(resourceValues)
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
     func checkDownloaded(document: VkDocument) {
-        let fileManager = FileManager.default
         let filePath = localFilePath(for: document)
         if fileManager.fileExists(atPath: filePath.path) {
             document.downloadState = .downloaded
+        }
+    }
+    
+    func renameDocument(_ document: VkDocument, newName: String) {
+        let filePath = localFilePath(for: document)
+        do {
+            try fileManager.moveItem(at: filePath, to: localFilePath(for: newName))
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
     
@@ -47,8 +61,8 @@ class FileService {
     
     func removeAlldocuments() {
         do {
-            for path in try fileManager.contentsOfDirectory(atPath: documentsPath.path) {
-                try fileManager.removeItem(atPath: path)
+            for file in try fileManager.contentsOfDirectory(atPath: documentsPath.path) {
+                try fileManager.removeItem(at: localFilePath(for: file))
             }
         } catch let error {
             print(error.localizedDescription)
