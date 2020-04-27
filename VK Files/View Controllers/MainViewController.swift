@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     var downloadService: DownloadService!
     var queryService: QueryService!
     var fileService: FileService!
+    var documentInteractionController: UIDocumentInteractionController!
     
     var documents = [VkDocument]()
     var indexOf = [DocumentID: Int]()
@@ -30,6 +31,9 @@ class MainViewController: UIViewController {
         self.downloadService = DownloadService(sessionDelegate: self)
         self.queryService = QueryService()
         self.fileService = FileService()
+        
+        documentInteractionController = UIDocumentInteractionController()
+        documentInteractionController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,7 +171,14 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showActivityVC(for: documents[indexPath.row], at: tableView.cellForRow(at: indexPath)!)
+        let document = documents[indexPath.row]
+        if document.downloadState == .downloaded {
+            let localURL = fileService.localFilePath(for: document)
+            documentInteractionController.url = localURL
+            if !documentInteractionController.presentPreview(animated: true) {
+                showErrorAlert(with: "Sorry, this file type is not supported :(\nYou can open it in other app via share menu.")
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -231,5 +242,11 @@ extension MainViewController: URLSessionDownloadDelegate {
                 cell.setDownloadProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))
             }
         }
+    }
+}
+
+extension MainViewController: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
     }
 }

@@ -35,6 +35,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0A74B1DC24562C730061A32D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0AF76FD82449044300E75A1C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -213,6 +222,7 @@
 				0AF76FBA2448FAF400E75A1C /* Resources */,
 				0AF76FD32449008D00E75A1C /* ShellScript */,
 				0AF76FD82449044300E75A1C /* Embed Frameworks */,
+				0A74B1DC24562C730061A32D /* CopyFiles */,
 			);
 			buildRules = (
 			);

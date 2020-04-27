@@ -158,13 +158,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jpm-x6-Tbe">
-                                                    <rect key="frame" x="66" y="320" width="242" height="41"/>
+                                                    <rect key="frame" x="66" y="329" width="242" height="41"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gu1-zd-PTP">
-                                                    <rect key="frame" x="87" y="100.5" width="200" height="199"/>
+                                                    <rect key="frame" x="87" y="70.5" width="200" height="199"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="200" id="g96-hg-O2C"/>
                                                         <constraint firstAttribute="width" constant="200" id="nIy-8D-pNJ"/>
@@ -179,11 +179,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="jpm-x6-Tbe" secondAttribute="trailing" constant="30" id="CJa-Ez-WbN"/>
-                                                <constraint firstItem="jpm-x6-Tbe" firstAttribute="top" secondItem="Gu1-zd-PTP" secondAttribute="bottom" constant="20" id="I0S-8K-QOQ"/>
+                                                <constraint firstItem="Gu1-zd-PTP" firstAttribute="top" secondItem="7QH-lD-oiM" secondAttribute="top" constant="70" id="G9y-Kk-cY8"/>
                                                 <constraint firstItem="jpm-x6-Tbe" firstAttribute="centerX" secondItem="7QH-lD-oiM" secondAttribute="centerX" id="OQ1-ay-Rvj"/>
                                                 <constraint firstItem="jpm-x6-Tbe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7QH-lD-oiM" secondAttribute="leadingMargin" constant="30" id="fyA-dt-f7e"/>
-                                                <constraint firstItem="Gu1-zd-PTP" firstAttribute="centerY" secondItem="7QH-lD-oiM" secondAttribute="centerY" id="hKS-Mh-Lzi"/>
                                                 <constraint firstItem="Gu1-zd-PTP" firstAttribute="centerX" secondItem="7QH-lD-oiM" secondAttribute="centerX" id="o8z-nD-hM1"/>
+                                                <constraint firstAttribute="bottom" secondItem="jpm-x6-Tbe" secondAttribute="bottom" constant="30" id="vSs-dw-TTj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
