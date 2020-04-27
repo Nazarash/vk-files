@@ -10,6 +10,10 @@ import UIKit
 
 extension UIViewController {
     
+    static func initFromStoryboard(id: StoryboardID) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: id.rawValue)
+    }
+    
     func showErrorAlert(with errorText: String) {
         let alert = UIAlertController(title: "Error", message: errorText, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

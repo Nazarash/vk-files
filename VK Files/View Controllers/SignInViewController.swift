@@ -16,7 +16,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        authService = AppDelegate.getInstance().authService
+        authService = AuthService.shared
         authService.delegate = self
     }
 
@@ -26,8 +26,9 @@ class SignInViewController: UIViewController {
 }
 
 extension SignInViewController: AuthDelegate {
+    
     func authorizationFinished() {
-        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
+        let tabBarController = UIViewController.initFromStoryboard(id: .TabBarController)
         AppDelegate.getInstance().window?.rootViewController = tabBarController
     }
     

@@ -14,15 +14,17 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        VKSdk.wakeUpSession(AppDelegate.getInstance().authService.scope) { (state, error) in
+        VKSdk.wakeUpSession(AuthService.shared.scope) { (state, error) in
             if state == .authorized {
-                let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TabBarController")
+                let tabBarController = UIViewController.initFromStoryboard(id: .TabBarController)
                 AppDelegate.getInstance().window?.rootViewController = tabBarController
             } else {
-                let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
+                let signInVC = UIViewController.initFromStoryboard(id: .SignInVC)
                 AppDelegate.getInstance().window?.rootViewController = signInVC
                 if state == .error {
-                    print(error?.localizedDescription ?? "Error without description")
+                    DispatchQueue.main.async {
+                        self.showErrorAlert(with: error?.localizedDescription ?? "Error without description")
+                    }
                 }
             }
         }

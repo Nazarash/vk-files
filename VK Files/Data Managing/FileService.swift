@@ -16,6 +16,7 @@ class FileService {
     func localFilePath(for document: VkDocument) -> URL {
         return localFilePath(for: document.title)
     }
+    
     private func localFilePath(for fileName: String) -> URL {
         documentsPath.appendingPathComponent(fileName)
     }
@@ -33,9 +34,13 @@ class FileService {
         }
     }
     
-    func checkDownloaded(document: VkDocument) {
+    func isDownloaded(document: VkDocument) -> Bool {
         let filePath = localFilePath(for: document)
-        if fileManager.fileExists(atPath: filePath.path) {
+        return fileManager.fileExists(atPath: filePath.path)
+    }
+    
+    func ensureDownloaded(document: VkDocument) {
+        if isDownloaded(document: document) {
             document.downloadState = .downloaded
         }
     }

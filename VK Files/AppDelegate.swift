@@ -13,7 +13,6 @@ import VKSdkFramework
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var authService: AuthService!
     
     static func getInstance() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -23,10 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        authService = AuthService()
-        
-        let loadingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LoadingVC")
+                
+        let loadingVC = UIViewController.initFromStoryboard(id: .LoadingVC)
         window?.rootViewController = loadingVC
         
         return true

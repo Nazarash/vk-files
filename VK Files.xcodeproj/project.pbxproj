@@ -19,6 +19,9 @@
 		0A74B1D224543D600061A32D /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D124543D600061A32D /* Download.swift */; };
 		0A74B1D4245457D20061A32D /* DocumentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D3245457D20061A32D /* DocumentCellDelegate.swift */; };
 		0A74B1D72454B6F20061A32D /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1D62454B6F20061A32D /* FileService.swift */; };
+		0A74B1E5245719FF0061A32D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E4245719FF0061A32D /* DataManager.swift */; };
+		0A74B1E724571A970061A32D /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E624571A970061A32D /* DataManagerDelegate.swift */; };
+		0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E824575EF30061A32D /* StoryboardIDs.swift */; };
 		0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB2F2449D90100418B0F /* AuthDelegate.swift */; };
 		0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB31244A1C1100418B0F /* MainViewController.swift */; };
 		0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB33244A217E00418B0F /* SettingsViewController.swift */; };
@@ -70,6 +73,9 @@
 		0A74B1D124543D600061A32D /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		0A74B1D3245457D20061A32D /* DocumentCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCellDelegate.swift; sourceTree = "<group>"; };
 		0A74B1D62454B6F20061A32D /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		0A74B1E4245719FF0061A32D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		0A74B1E624571A970061A32D /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
+		0A74B1E824575EF30061A32D /* StoryboardIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIDs.swift; sourceTree = "<group>"; };
 		0A92CB2F2449D90100418B0F /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		0A92CB31244A1C1100418B0F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A92CB33244A217E00418B0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 			children = (
 				0A6944762453126300E5A17D /* JSONParser.swift */,
 				0A74B1D62454B6F20061A32D /* FileService.swift */,
+				0A74B1E4245719FF0061A32D /* DataManager.swift */,
+				0A74B1E624571A970061A32D /* DataManagerDelegate.swift */,
 			);
 			path = "Data Managing";
 			sourceTree = "<group>";
@@ -132,6 +140,7 @@
 				0AF76FC32448FAF400E75A1C /* SignInViewController.swift */,
 				0A92CB31244A1C1100418B0F /* MainViewController.swift */,
 				0A92CB33244A217E00418B0F /* SettingsViewController.swift */,
+				0A74B1E824575EF30061A32D /* StoryboardIDs.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -310,11 +319,14 @@
 				0A6944772453126300E5A17D /* JSONParser.swift in Sources */,
 				0A6944732453040100E5A17D /* UIViewController.swift in Sources */,
 				0A74B1D024543CF80061A32D /* DownloadService.swift in Sources */,
+				0A74B1E724571A970061A32D /* DataManagerDelegate.swift in Sources */,
 				0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */,
 				0A74B1D4245457D20061A32D /* DocumentCellDelegate.swift in Sources */,
 				0A92CB3C244C408D00418B0F /* VkDocument.swift in Sources */,
 				0A92CB36244B20AC00418B0F /* QueryService.swift in Sources */,
+				0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */,
 				0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */,
+				0A74B1E5245719FF0061A32D /* DataManager.swift in Sources */,
 				0A74B1D224543D600061A32D /* Download.swift in Sources */,
 				0A6944802453480900E5A17D /* UIImageView.swift in Sources */,
 				0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */,

@@ -18,8 +18,8 @@ class DownloadService {
         downloadsSession = URLSession(configuration: URLSessionConfiguration.default, delegate: sessionDelegate,delegateQueue: nil)
     }
     
-    func startDownload(_ document: VkDocument, with tableIndex: Int) {
-        let download = Download(document: document, tableIndex: tableIndex)
+    func startDownload(_ document: VkDocument) {
+        let download = Download(document: document)
         download.task = downloadsSession.downloadTask(with: document.url)
         download.task?.resume()
         download.isDownloading = true

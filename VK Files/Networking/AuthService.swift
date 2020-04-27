@@ -12,13 +12,15 @@ import VKSdkFramework
 
 class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     
+    static let shared = AuthService()
+    
     let appId = "7411023"
     let scope = ["offline", "docs"]
     private let vkSDK: VKSdk
     
     weak var delegate: AuthDelegate?
     
-    override init() {
+    private override init() {
         vkSDK = VKSdk.initialize(withAppId: appId)
         super.init()
         vkSDK.register(self)
