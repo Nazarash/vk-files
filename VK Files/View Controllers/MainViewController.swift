@@ -11,6 +11,8 @@ import UIKit
 class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sortButton: UIBarButtonItem!
+    
 
     var documentInteractionController: UIDocumentInteractionController!
     
@@ -81,6 +83,18 @@ class MainViewController: UIViewController {
             activityVC.popoverPresentationController?.sourceView = sourceView
         }
         present(activityVC, animated: true)
+    }
+    
+    @IBAction func sortAction(_ sender: Any) {
+        let sortMethodsVC = UIViewController.initFromStoryboard(id: StoryboardID.SortMethodsVC) as! SortMethodsViewController
+        sortMethodsVC.modalPresentationStyle = .popover
+        sortMethodsVC.dataManager = dataManager
+        
+        let popOverVC = sortMethodsVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.barButtonItem = sender as? UIBarButtonItem
+        
+        present(sortMethodsVC, animated: true)
     }
 }
 
@@ -169,5 +183,11 @@ extension MainViewController: UIDocumentInteractionControllerDelegate {
     
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
+    }
+}
+
+extension MainViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

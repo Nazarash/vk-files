@@ -22,6 +22,8 @@
 		0A74B1E5245719FF0061A32D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E4245719FF0061A32D /* DataManager.swift */; };
 		0A74B1E724571A970061A32D /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E624571A970061A32D /* DataManagerDelegate.swift */; };
 		0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E824575EF30061A32D /* StoryboardIDs.swift */; };
+		0A7E017E2459A75800A5E502 /* SortMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E017D2459A75800A5E502 /* SortMethods.swift */; };
+		0A7E01802459FBB100A5E502 /* SortMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E017F2459FBB100A5E502 /* SortMethodsViewController.swift */; };
 		0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB2F2449D90100418B0F /* AuthDelegate.swift */; };
 		0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB31244A1C1100418B0F /* MainViewController.swift */; };
 		0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB33244A217E00418B0F /* SettingsViewController.swift */; };
@@ -76,6 +78,8 @@
 		0A74B1E4245719FF0061A32D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0A74B1E624571A970061A32D /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
 		0A74B1E824575EF30061A32D /* StoryboardIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIDs.swift; sourceTree = "<group>"; };
+		0A7E017D2459A75800A5E502 /* SortMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethods.swift; sourceTree = "<group>"; };
+		0A7E017F2459FBB100A5E502 /* SortMethodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethodsViewController.swift; sourceTree = "<group>"; };
 		0A92CB2F2449D90100418B0F /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		0A92CB31244A1C1100418B0F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A92CB33244A217E00418B0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				0A74B1D62454B6F20061A32D /* FileService.swift */,
 				0A74B1E4245719FF0061A32D /* DataManager.swift */,
 				0A74B1E624571A970061A32D /* DataManagerDelegate.swift */,
+				0A7E017D2459A75800A5E502 /* SortMethods.swift */,
 			);
 			path = "Data Managing";
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 				0A92CB31244A1C1100418B0F /* MainViewController.swift */,
 				0A92CB33244A217E00418B0F /* SettingsViewController.swift */,
 				0A74B1E824575EF30061A32D /* StoryboardIDs.swift */,
+				0A7E017F2459FBB100A5E502 /* SortMethodsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A7E017E2459A75800A5E502 /* SortMethods.swift in Sources */,
 				0AF76FDA24490B4200E75A1C /* AuthService.swift in Sources */,
 				0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */,
 				0A6944772453126300E5A17D /* JSONParser.swift in Sources */,
@@ -325,6 +332,7 @@
 				0A92CB3C244C408D00418B0F /* VkDocument.swift in Sources */,
 				0A92CB36244B20AC00418B0F /* QueryService.swift in Sources */,
 				0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */,
+				0A7E01802459FBB100A5E502 /* SortMethodsViewController.swift in Sources */,
 				0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */,
 				0A74B1E5245719FF0061A32D /* DataManager.swift in Sources */,
 				0A74B1D224543D600061A32D /* Download.swift in Sources */,

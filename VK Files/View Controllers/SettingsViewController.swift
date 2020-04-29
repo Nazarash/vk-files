@@ -46,6 +46,7 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func logOutAction(_ sender: Any) {
         fileService.removeAlldocuments()
+        UserDefaults.standard.removeObject(forKey: "sortMethod")
         
         VKSdk.forceLogout()
         let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")

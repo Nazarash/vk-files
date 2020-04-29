@@ -14,4 +14,5 @@ enum StoryboardID: String {
     case TabBarController = "TabBarController"
     case MainVC = "MainVC"
     case SettingsVC = "SettingsVC"
+    case SortMethodsVC = "SortMethodsVC"
 }

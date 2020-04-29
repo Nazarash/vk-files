@@ -17,6 +17,7 @@ struct User {
 }
 
 extension User: Codable {
+    
     enum CodingKeys : String, CodingKey {
         case id
         case firstName

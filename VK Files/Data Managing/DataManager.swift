@@ -14,7 +14,8 @@ class DataManager: NSObject {
     typealias DocumentID = Int
     
     private var documents = [VkDocument]()
-    var indexOf = [DocumentID: Int]()
+    private var indexOf = [DocumentID: Int]()
+    private var sortMethod: SortMethods!
     
     private var queryService: QueryService!
     private var fileService: FileService!
@@ -24,9 +25,13 @@ class DataManager: NSObject {
     
     override init() {
         super.init()
+        
         queryService = QueryService()
         fileService = FileService()
         downloadService = DownloadService(sessionDelegate: self)
+        
+        let savedMethod = UserDefaults.standard.string(forKey: "sortMethod")
+        sortMethod = SortMethods.init(rawValue: savedMethod ?? SortMethods.dateDescending.rawValue)
     }
     
     func getDocument(withIndex index: Int) -> VkDocument {
@@ -51,8 +56,11 @@ class DataManager: NSObject {
             switch result {
             case .success(let docs):
                 self.documents = docs
-                self.delegate.updateContent()
+                if self.sortMethod != .dateDescending {
+                    self.sortData()
+                }
                 self.updateDocumentIndices()
+                self.delegate.updateContent()
             case .failure(let error):
                 self.delegate.reportError(with: error.localizedDescription)
             }
@@ -100,6 +108,17 @@ class DataManager: NSObject {
     
     func cancelDownloadingDocument(withIndex index: Int) {
         downloadService.cancelDownload(documents[index])
+    }
+    
+    func sortData() {
+        documents.sort(by: sortMethod.method)
+    }
+    
+    func applySortMethod(_ sortMethod: SortMethods) {
+        self.sortMethod = sortMethod
+        UserDefaults.standard.set(sortMethod.rawValue, forKey: "sortMethod")
+        sortData()
+        delegate.updateContent()
     }
 }
 
