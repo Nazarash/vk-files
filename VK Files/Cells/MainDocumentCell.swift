@@ -22,8 +22,13 @@ class MainDocumentCell: UITableViewCell {
     
     var delegate: DocumentCellDelegate?
     
+    override func prepareForReuse() {
+        previewImage.image = nil
+    }
+    
     func configure(with document: VkDocument) {
         previewImage.image = UIImage(systemName: document.systemImageName)
+        previewImage.loadImage(from: document.preview)
         titleLabel.text = document.title
         detailsLabel.text = ByteCountFormatter.string(fromByteCount: document.size, countStyle: .file)
         

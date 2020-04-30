@@ -14,7 +14,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var sortButton: UIBarButtonItem!
     
 
-    var documentInteractionController: UIDocumentInteractionController!
+    var documentInteractionController = UIDocumentInteractionController()
+    let searchController = UISearchController(searchResultsController: nil)
+
     
     var dataManager: DataManager!
     
@@ -26,10 +28,15 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = dataManager
         
-        documentInteractionController = UIDocumentInteractionController()
         documentInteractionController.delegate = self
-        
         dataManager.delegate = self
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search files"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,7 +194,15 @@ extension MainViewController: UIDocumentInteractionControllerDelegate {
 }
 
 extension MainViewController: UIPopoverPresentationControllerDelegate {
+    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+extension MainViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        dataManager.applyFilterWithSearch(text: searchController.searchBar.text!)
     }
 }

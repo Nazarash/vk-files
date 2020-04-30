@@ -13,7 +13,13 @@ class DataManager: NSObject {
     
     typealias DocumentID = Int
     
-    private var documents = [VkDocument]()
+    private var rawDocuments = [VkDocument]()
+    private var filteredDocuments = [VkDocument]()
+    private var filterApplied = false
+    private var documents: [VkDocument] {
+        return filterApplied ? filteredDocuments : rawDocuments
+    }
+    
     private var indexOf = [DocumentID: Int]()
     private var sortMethod: SortMethods!
     
@@ -55,7 +61,7 @@ class DataManager: NSObject {
         queryService.getDocuments() { result in
             switch result {
             case .success(let docs):
-                self.documents = docs
+                self.rawDocuments = docs
                 if self.sortMethod != .dateDescending {
                     self.sortData()
                 }
@@ -68,10 +74,11 @@ class DataManager: NSObject {
     }
     
     func updateDocumentIndices() {
-        indexOf.removeAll(keepingCapacity: true)
+        var newIndices = [DocumentID: Int]()
         for (index, document) in documents.enumerated() {
-            indexOf[document.id] = index
+            newIndices[document.id] = index
         }
+        indexOf = newIndices
     }
     
     func renameDocument(withIndex index: Int, newName: String) {
@@ -111,13 +118,25 @@ class DataManager: NSObject {
     }
     
     func sortData() {
-        documents.sort(by: sortMethod.method)
+        rawDocuments.sort(by: sortMethod.method)
     }
     
     func applySortMethod(_ sortMethod: SortMethods) {
         self.sortMethod = sortMethod
         UserDefaults.standard.set(sortMethod.rawValue, forKey: "sortMethod")
         sortData()
+        updateDocumentIndices()
+        delegate.updateContent()
+    }
+    
+    func applyFilterWithSearch(text: String) {
+        if text.count == 0 {
+            filterApplied = false
+        } else {
+            filteredDocuments = rawDocuments.filter{ $0.title.lowercased().contains(text.lowercased()) }
+            filterApplied = true
+        }
+        updateDocumentIndices()
         delegate.updateContent()
     }
 }

@@ -17,6 +17,19 @@ struct VKDocsGetResponse: Codable {
     let items: [VkDocument]
 }
 
+struct VkDocPreview: Codable {
+    let photo: VkDocPhotoPreview?
+}
+
+struct VkDocPhotoPreview: Codable {
+    let sizes: [VkPreviewSize]
+}
+
+struct VkPreviewSize: Codable {
+    let src: URL
+    let type: String
+}
+
 struct VkUsersGetResponse: Codable {
     let response: [User]
 }

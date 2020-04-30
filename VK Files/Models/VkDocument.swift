@@ -28,6 +28,7 @@ class VkDocument: Codable {
     let url: URL
     let creationDate: Date
     let type: DocType
+    let rawPreviews: VkDocPreview?
     
     var downloadState = DownloadState.notDownloaded
     
@@ -52,7 +53,11 @@ class VkDocument: Codable {
         }
     }
     
-    init(id: Int, title: String, size: Int64, ext: String, url: String, date: Int, type: Int) {
+    var preview: URL? {
+        return rawPreviews?.photo?.sizes.filter{ $0.type == "m" }.first?.src
+    }
+    
+    init(id: Int, title: String, size: Int64, ext: String, url: String, date: Int, type: Int, preview: VkDocPreview) {
         self.id = id
         self.title = title
         self.size = size
@@ -60,6 +65,7 @@ class VkDocument: Codable {
         self.url = URL(string: url)!
         self.creationDate = Date(timeIntervalSince1970: TimeInterval(date))
         self.type = DocType.init(rawValue: type) ?? .other
+        self.rawPreviews = preview
     }
     
     enum CodingKeys : String, CodingKey {
@@ -70,6 +76,7 @@ class VkDocument: Codable {
         case url
         case creationDate = "date"
         case type
+        case rawPreviews = "preview"
     }
 }
 
