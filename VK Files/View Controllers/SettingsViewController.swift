@@ -16,22 +16,25 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    var queryService: QueryService!
-    var fileService: FileService!
+    let queryService =  QueryService()
+    let fileService = FileService()
+    let coreDataManager = CoreDataManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        queryService = QueryService()
+        if let savedUser = coreDataManager.getUserInfo() {
+            showUserInfo(for: savedUser)
+        }
         queryService.getUser() { result in
             switch result {
             case .success(let user):
                 self.showUserInfo(for: user)
+                self.coreDataManager.setUserInfo(user)
             case .failure(let error):
-                self.showErrorAlert(with: error.localizedDescription)
+                self.showAlert(with: error.localizedDescription)
             }
         }
-        fileService = FileService()
     }
     
     func showUserInfo(for user: User) {
@@ -47,7 +50,7 @@ class SettingsViewController: UITableViewController {
     @IBAction func logOutAction(_ sender: Any) {
         fileService.removeAlldocuments()
         UserDefaults.standard.removeObject(forKey: "sortMethod")
-        
+        coreDataManager.clearDatabase()
         VKSdk.forceLogout()
         let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
         AppDelegate.getInstance().window?.rootViewController = signInVC

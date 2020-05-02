@@ -12,14 +12,14 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortButton: UIBarButtonItem!
+    @IBOutlet weak var placeHolderLabel: UILabel!
     
 
     var documentInteractionController = UIDocumentInteractionController()
     let searchController = UISearchController(searchResultsController: nil)
 
-    
     var dataManager: DataManager!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,22 +28,40 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = dataManager
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        
         documentInteractionController.delegate = self
         dataManager.delegate = self
+        dataManager.updateContent()
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search files"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-
+        
+        updateContent()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc private func refresh(sender: UIRefreshControl) {
         dataManager.updateContent()
+        sender.endRefreshing()
+    }
+    
+    func isOffline() -> Bool {
+        if NetworkService.state == .offline {
+            showAlert(with: "We are offline :(")
+            return true
+        }
+        return false
     }
     
     func showRenameDialog(forCellatRow index: Int) {
+        if isOffline() {
+            return
+        }
         let renameAlert = UIAlertController(title: "Rename file", message: nil, preferredStyle: .alert)
         
         renameAlert.addTextField { (textField) in
@@ -67,6 +85,9 @@ class MainViewController: UIViewController {
     }
     
     func showDeleteDialog(forCellatRow index: Int) {
+        if isOffline() {
+            return
+        }
         let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
@@ -108,7 +129,15 @@ class MainViewController: UIViewController {
 extension MainViewController: DataManagerDelegate {
     
     func updateContent() {
+        
         tableView.reloadData()
+        placeHolderLabel.isHidden = dataManager.hasData()
+        switch NetworkService.state {
+        case .online:
+            navigationItem.title = "My Files"
+        case .offline:
+            navigationItem.title = "My Files (offline)"
+        }
     }
     
     func updateContent(for index: Int) {
@@ -122,13 +151,16 @@ extension MainViewController: DataManagerDelegate {
     }
     
     func reportError(with description: String) {
-        showErrorAlert(with: description)
+        showAlert(with: description)
     }
 }
 
 extension MainViewController: DocumentCellDelegate {
     
     func downloadStarted(_ cell: MainDocumentCell) {
+        if isOffline() {
+            return
+        }
         if let indexPath = tableView.indexPath(for: cell) {
             dataManager.startDownloadingDocument(withIndex: indexPath.row)
             tableView.reloadRows(at: [indexPath], with: .none)
@@ -147,7 +179,10 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let localURL = dataManager.getLocalURLForDocument(withIndex: indexPath.row) else {return}
+        guard let localURL = dataManager.getLocalURLForDocument(withIndex: indexPath.row) else {
+            showAlert(with: "You should first download file to open it")
+            return
+        }
         documentInteractionController.url = localURL
         if !documentInteractionController.presentPreview(animated: true) {
             showActivityVC(forCellAt: indexPath)

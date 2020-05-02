@@ -14,8 +14,8 @@ extension UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: id.rawValue)
     }
     
-    func showErrorAlert(with errorText: String) {
-        let alert = UIAlertController(title: "Error", message: errorText, preferredStyle: .alert)
+    func showAlert(name: String = "Error", with text: String) {
+        let alert = UIAlertController(title: name, message: text, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }

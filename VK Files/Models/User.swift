@@ -14,6 +14,13 @@ struct User {
     let firstName: String
     let lastName: String
     let photoURL: URL
+    
+    init(entity: UserEntity) {
+        self.id = Int(entity.id)
+        self.firstName = entity.firstName
+        self.lastName = entity.lastName
+        self.photoURL = entity.photoURL
+    }
 }
 
 extension User: Codable {

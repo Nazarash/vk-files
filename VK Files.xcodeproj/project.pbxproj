@@ -24,11 +24,18 @@
 		0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74B1E824575EF30061A32D /* StoryboardIDs.swift */; };
 		0A7E017E2459A75800A5E502 /* SortMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E017D2459A75800A5E502 /* SortMethods.swift */; };
 		0A7E01802459FBB100A5E502 /* SortMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E017F2459FBB100A5E502 /* SortMethodsViewController.swift */; };
+		0A7E01AB245B6E8000A5E502 /* VK_Files.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E01A9245B6E8000A5E502 /* VK_Files.xcdatamodeld */; };
+		0A7E01B3245B7B1200A5E502 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E01B2245B7B1200A5E502 /* CoreDataManager.swift */; };
+		0A7E01B6245C190A00A5E502 /* DocumentEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E01B4245C190A00A5E502 /* DocumentEntity+CoreDataClass.swift */; };
+		0A7E01B7245C190A00A5E502 /* DocumentEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7E01B5245C190A00A5E502 /* DocumentEntity+CoreDataProperties.swift */; };
 		0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB2F2449D90100418B0F /* AuthDelegate.swift */; };
 		0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB31244A1C1100418B0F /* MainViewController.swift */; };
 		0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB33244A217E00418B0F /* SettingsViewController.swift */; };
 		0A92CB36244B20AC00418B0F /* QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB35244B20AC00418B0F /* QueryService.swift */; };
 		0A92CB3C244C408D00418B0F /* VkDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92CB3B244C408D00418B0F /* VkDocument.swift */; };
+		0AEAD4EA245CA86C0036240B /* UserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD4E8245CA86C0036240B /* UserEntity+CoreDataClass.swift */; };
+		0AEAD4EB245CA86C0036240B /* UserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD4E9245CA86C0036240B /* UserEntity+CoreDataProperties.swift */; };
+		0AEAD4ED245D91F70036240B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD4EC245D91F70036240B /* NetworkService.swift */; };
 		0AF76FC02448FAF400E75A1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */; };
 		0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF76FC32448FAF400E75A1C /* SignInViewController.swift */; };
 		0AF76FC72448FAF400E75A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF76FC52448FAF400E75A1C /* Main.storyboard */; };
@@ -80,11 +87,18 @@
 		0A74B1E824575EF30061A32D /* StoryboardIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIDs.swift; sourceTree = "<group>"; };
 		0A7E017D2459A75800A5E502 /* SortMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethods.swift; sourceTree = "<group>"; };
 		0A7E017F2459FBB100A5E502 /* SortMethodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethodsViewController.swift; sourceTree = "<group>"; };
+		0A7E01AA245B6E8000A5E502 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		0A7E01B2245B7B1200A5E502 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0A7E01B4245C190A00A5E502 /* DocumentEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0A7E01B5245C190A00A5E502 /* DocumentEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A92CB2F2449D90100418B0F /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		0A92CB31244A1C1100418B0F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0A92CB33244A217E00418B0F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A92CB35244B20AC00418B0F /* QueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryService.swift; sourceTree = "<group>"; };
 		0A92CB3B244C408D00418B0F /* VkDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkDocument.swift; sourceTree = "<group>"; };
+		0AEAD4E8245CA86C0036240B /* UserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0AEAD4E9245CA86C0036240B /* UserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0AEAD4EC245D91F70036240B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0AF76FBC2448FAF400E75A1C /* VK Files.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VK Files.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF76FBF2448FAF400E75A1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AF76FC32448FAF400E75A1C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -134,8 +148,21 @@
 				0A74B1E4245719FF0061A32D /* DataManager.swift */,
 				0A74B1E624571A970061A32D /* DataManagerDelegate.swift */,
 				0A7E017D2459A75800A5E502 /* SortMethods.swift */,
+				0A7E01B2245B7B1200A5E502 /* CoreDataManager.swift */,
 			);
 			path = "Data Managing";
+			sourceTree = "<group>";
+		};
+		0A7E01A8245B6DA900A5E502 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				0AEAD4E8245CA86C0036240B /* UserEntity+CoreDataClass.swift */,
+				0AEAD4E9245CA86C0036240B /* UserEntity+CoreDataProperties.swift */,
+				0A7E01B4245C190A00A5E502 /* DocumentEntity+CoreDataClass.swift */,
+				0A7E01B5245C190A00A5E502 /* DocumentEntity+CoreDataProperties.swift */,
+				0A7E01A9245B6E8000A5E502 /* VK_Files.xcdatamodeld */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		0A92CB37244B2B2200418B0F /* View Controllers */ = {
@@ -159,6 +186,7 @@
 				0A92CB35244B20AC00418B0F /* QueryService.swift */,
 				0A6944782453141F00E5A17D /* NetworkError.swift */,
 				0A74B1CF24543CF80061A32D /* DownloadService.swift */,
+				0AEAD4EC245D91F70036240B /* NetworkService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -176,6 +204,7 @@
 		0A92CB3A244C407600418B0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A7E01A8245B6DA900A5E502 /* Core Data */,
 				0A92CB3B244C408D00418B0F /* VkDocument.swift */,
 				0A69446D24523AA600E5A17D /* VkResponse.swift */,
 				0A69447424530F0400E5A17D /* User.swift */,
@@ -321,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A7E017E2459A75800A5E502 /* SortMethods.swift in Sources */,
+				0AEAD4EA245CA86C0036240B /* UserEntity+CoreDataClass.swift in Sources */,
 				0AF76FDA24490B4200E75A1C /* AuthService.swift in Sources */,
 				0AF76FC42448FAF400E75A1C /* SignInViewController.swift in Sources */,
 				0A6944772453126300E5A17D /* JSONParser.swift in Sources */,
@@ -329,6 +359,8 @@
 				0A74B1E724571A970061A32D /* DataManagerDelegate.swift in Sources */,
 				0A92CB302449D90100418B0F /* AuthDelegate.swift in Sources */,
 				0A74B1D4245457D20061A32D /* DocumentCellDelegate.swift in Sources */,
+				0AEAD4ED245D91F70036240B /* NetworkService.swift in Sources */,
+				0A7E01B7245C190A00A5E502 /* DocumentEntity+CoreDataProperties.swift in Sources */,
 				0A92CB3C244C408D00418B0F /* VkDocument.swift in Sources */,
 				0A92CB36244B20AC00418B0F /* QueryService.swift in Sources */,
 				0A74B1E924575EF30061A32D /* StoryboardIDs.swift in Sources */,
@@ -338,11 +370,15 @@
 				0A74B1D224543D600061A32D /* Download.swift in Sources */,
 				0A6944802453480900E5A17D /* UIImageView.swift in Sources */,
 				0A92CB32244A1C1100418B0F /* MainViewController.swift in Sources */,
+				0AEAD4EB245CA86C0036240B /* UserEntity+CoreDataProperties.swift in Sources */,
 				0A74B1D72454B6F20061A32D /* FileService.swift in Sources */,
 				0A6944792453141F00E5A17D /* NetworkError.swift in Sources */,
 				0A92CB34244A217E00418B0F /* SettingsViewController.swift in Sources */,
+				0A7E01B6245C190A00A5E502 /* DocumentEntity+CoreDataClass.swift in Sources */,
 				0A6944702452F13E00E5A17D /* LoadingViewController.swift in Sources */,
 				0A3EE1E82450945800D0CBC6 /* MainDocumentCell.swift in Sources */,
+				0A7E01B3245B7B1200A5E502 /* CoreDataManager.swift in Sources */,
+				0A7E01AB245B6E8000A5E502 /* VK_Files.xcdatamodeld in Sources */,
 				0A69446E24523AA600E5A17D /* VkResponse.swift in Sources */,
 				0A69447524530F0400E5A17D /* User.swift in Sources */,
 			);
@@ -550,6 +586,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A7E01A9245B6E8000A5E502 /* VK_Files.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A7E01AA245B6E8000A5E502 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 0A7E01AA245B6E8000A5E502 /* DataModel.xcdatamodel */;
+			path = VK_Files.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0AF76FB42448FAF400E75A1C /* Project object */;
 }

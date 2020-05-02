@@ -33,7 +33,7 @@ extension SignInViewController: AuthDelegate {
     }
     
     func authorizationFailed() {
-        showErrorAlert(with: "Something went wrong with the authorization. Try again.")
+        showAlert(with: "Something went wrong with the authorization. Try again.")
     }
     
     func presentAuth(viewController: UIViewController) {

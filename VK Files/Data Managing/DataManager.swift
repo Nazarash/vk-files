@@ -11,8 +11,6 @@ import UIKit
 
 class DataManager: NSObject {
     
-    typealias DocumentID = Int
-    
     private var rawDocuments = [VkDocument]()
     private var filteredDocuments = [VkDocument]()
     private var filterApplied = false
@@ -20,12 +18,13 @@ class DataManager: NSObject {
         return filterApplied ? filteredDocuments : rawDocuments
     }
     
-    private var indexOf = [DocumentID: Int]()
+    private var indexOf = [VkDocument: Int]()
     private var sortMethod: SortMethods!
     
     private var queryService: QueryService!
     private var fileService: FileService!
     private var downloadService: DownloadService!
+    private var coreDataManager = CoreDataManager.shared
     
     weak var delegate: DataManagerDelegate!
     
@@ -38,10 +37,16 @@ class DataManager: NSObject {
         
         let savedMethod = UserDefaults.standard.string(forKey: "sortMethod")
         sortMethod = SortMethods.init(rawValue: savedMethod ?? SortMethods.dateDescending.rawValue)
+        
+        rawDocuments = coreDataManager.getDocuments(sorted: true)
     }
     
     func getDocument(withIndex index: Int) -> VkDocument {
         return documents[index]
+    }
+    
+    func hasData() -> Bool {
+        return !documents.isEmpty
     }
     
     func getLocalURLForDocument(withIndex index: Int) -> URL? {
@@ -61,22 +66,29 @@ class DataManager: NSObject {
         queryService.getDocuments() { result in
             switch result {
             case .success(let docs):
+                NetworkService.state = .online
                 self.rawDocuments = docs
                 if self.sortMethod != .dateDescending {
                     self.sortData()
                 }
                 self.updateDocumentIndices()
                 self.delegate.updateContent()
+                DispatchQueue.global(qos: .background).async {
+                    CoreDataManager.shared.sync(withLoaded: docs)
+                }
             case .failure(let error):
-                self.delegate.reportError(with: error.localizedDescription)
+                if NetworkService.state == .online {
+                    self.delegate.reportError(with: error.localizedDescription)
+                    NetworkService.state = .offline
+                }
             }
         }
     }
     
     func updateDocumentIndices() {
-        var newIndices = [DocumentID: Int]()
+        var newIndices = [VkDocument: Int]()
         for (index, document) in documents.enumerated() {
-            newIndices[document.id] = index
+            newIndices[document] = index
         }
         indexOf = newIndices
     }
@@ -87,8 +99,8 @@ class DataManager: NSObject {
             switch result {
             case .success:
                 self.fileService.renameDocument(document, newName: newName)
+                self.coreDataManager.renameDocument(document)
                 self.updateContent()
-                self.delegate.updateContent()
             case .failure(let error):
                 self.delegate.reportError(with: error.localizedDescription)
             }
@@ -101,8 +113,8 @@ class DataManager: NSObject {
             switch result {
             case .success:
                 self.fileService.removeDocument(document)
+                self.coreDataManager.deleteDocument(document)
                 self.updateContent()
-                self.delegate.updateContent()
             case .failure(let error):
                 self.delegate.reportError(with: error.localizedDescription)
             }
@@ -171,7 +183,7 @@ extension DataManager: URLSessionDownloadDelegate {
         download.document.downloadState = .downloaded
         
         DispatchQueue.main.async { [weak self] in
-            if let index = self?.indexOf[download.document.id] {
+            if let index = self?.indexOf[download.document] {
                 self?.delegate.updateContent(for: index)
             }
         }
@@ -186,7 +198,7 @@ extension DataManager: URLSessionDownloadDelegate {
         }
         
         DispatchQueue.main.async {
-            if let index = self.indexOf[download.document.id] {
+            if let index = self.indexOf[download.document] {
                 self.delegate.showDownloadProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), for: index)
             }
         }

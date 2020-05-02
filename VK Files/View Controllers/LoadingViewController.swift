@@ -15,17 +15,15 @@ class LoadingViewController: UIViewController {
         super.viewDidLoad()
 
         VKSdk.wakeUpSession(AuthService.shared.scope) { (state, error) in
-            if state == .authorized {
-                let tabBarController = UIViewController.initFromStoryboard(id: .TabBarController)
-                AppDelegate.getInstance().window?.rootViewController = tabBarController
-            } else {
+            if state == .initialized {
                 let signInVC = UIViewController.initFromStoryboard(id: .SignInVC)
                 AppDelegate.getInstance().window?.rootViewController = signInVC
-                if state == .error {
-                    DispatchQueue.main.async {
-                        self.showErrorAlert(with: error?.localizedDescription ?? "Error without description")
-                    }
+            } else {
+                if state != .authorized {
+                    NetworkService.state = .offline
                 }
+                let tabBarController = UIViewController.initFromStoryboard(id: .TabBarController)
+                AppDelegate.getInstance().window?.rootViewController = tabBarController
             }
         }
     }

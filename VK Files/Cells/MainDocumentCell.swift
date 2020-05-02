@@ -30,7 +30,7 @@ class MainDocumentCell: UITableViewCell {
         previewImage.image = UIImage(systemName: document.systemImageName)
         previewImage.loadImage(from: document.preview)
         titleLabel.text = document.title
-        detailsLabel.text = ByteCountFormatter.string(fromByteCount: document.size, countStyle: .file)
+        detailsLabel.text = ByteCountFormatter.string(fromByteCount: Int64(document.size), countStyle: .file)
         
         setAppearance(for: document.downloadState)
     }
