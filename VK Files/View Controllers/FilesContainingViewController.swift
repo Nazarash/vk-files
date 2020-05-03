@@ -1,52 +1,52 @@
 //
-//  MainViewController.swift
+//  FilesContainingViewController.swift
 //  VK Files
 //
-//  Created by Дмитрий on 17.04.2020.
+//  Created by Дмитрий on 03.05.2020.
 //  Copyright © 2020 Dmitryd20. All rights reserved.
 //
 
 import UIKit
 
-class MainViewController: UIViewController {
+class FilesContainingViewController: UIViewController { // Abstract class for any VC with a tableView with files
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortButton: UIBarButtonItem!
-    @IBOutlet weak var placeHolderLabel: UILabel!
+    @IBOutlet weak var placeholderLabel: UILabel!
     
-
-    var documentInteractionController = UIDocumentInteractionController()
-    let searchController = UISearchController(searchResultsController: nil)
-
+    let documentInteractionController = UIDocumentInteractionController()
+    
     var dataManager: DataManager!
-        
+    
+    var defaultTitle: String!
+    
+    // MARK: - Lifecycle methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dataManager = DataManager()
-        
+
         tableView.delegate = self
         tableView.dataSource = dataManager
+        let cellId = DocumentCell.identifier
+        tableView.register(UINib(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
         
         documentInteractionController.delegate = self
-        dataManager.delegate = self
-        dataManager.updateContent()
-        
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search files"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        
-        updateContent()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        dataManager.delegate = self
+    }
+    
+    // MARK: - Updating data
+    
     @objc private func refresh(sender: UIRefreshControl) {
-        dataManager.updateContent()
+        dataManager.updateData()
         sender.endRefreshing()
     }
     
@@ -58,16 +58,15 @@ class MainViewController: UIViewController {
         return false
     }
     
+    // MARK: - Action dialogs
+    
     func showRenameDialog(forCellatRow index: Int) {
-        if isOffline() {
-            return
-        }
-        let renameAlert = UIAlertController(title: "Rename file", message: nil, preferredStyle: .alert)
+        if isOffline() { return }
         
+        let renameAlert = UIAlertController(title: "Rename file", message: nil, preferredStyle: .alert)
         renameAlert.addTextField { (textField) in
             textField.text = self.dataManager.getDocument(withIndex: index).title
         }
-        
         let confirmAction = UIAlertAction(title: "Done", style: .default) { _ in
             if let newName = renameAlert.textFields?[0].text {
                 if newName.range(of: #".*\.[A-Za-z0-9]+"#, options: .regularExpression) != nil {
@@ -75,21 +74,17 @@ class MainViewController: UIViewController {
                 }
             }
         }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         renameAlert.addAction(confirmAction)
         renameAlert.addAction(cancelAction)
-        
         present(renameAlert, animated: true)
     }
     
     func showDeleteDialog(forCellatRow index: Int) {
-        if isOffline() {
-            return
-        }
-        let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: .alert)
+        if isOffline() { return }
         
+        let deleteAlert = UIAlertController(title: "Are you sure?", message: "This action cannot be undone", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.dataManager.deleteDocument(withIndex: index)
         }
@@ -126,17 +121,25 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: DataManagerDelegate {
+// MARK: - Data manager protocols
+
+extension FilesContainingViewController: DataInjectable {
+    
+    func injectDataManager(_ dataManager: DataManager) {
+        self.dataManager = dataManager
+    }
+}
+
+extension FilesContainingViewController: DataManagerDelegate {
     
     func updateContent() {
-        
         tableView.reloadData()
-        placeHolderLabel.isHidden = dataManager.hasData()
+        placeholderLabel.isHidden = dataManager.hasData()
         switch NetworkService.state {
         case .online:
-            navigationItem.title = "My Files"
+            navigationItem.title = defaultTitle
         case .offline:
-            navigationItem.title = "My Files (offline)"
+            navigationItem.title = defaultTitle + " (offline)"
         }
     }
     
@@ -145,7 +148,7 @@ extension MainViewController: DataManagerDelegate {
     }
     
     func showDownloadProgress(_ value: Float, for index: Int) {
-        if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? MainDocumentCell {
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? DocumentCell {
             cell.setDownloadProgress(value)
         }
     }
@@ -155,9 +158,11 @@ extension MainViewController: DataManagerDelegate {
     }
 }
 
-extension MainViewController: DocumentCellDelegate {
+// MARK: - TableView delegates
+
+extension FilesContainingViewController: DocumentCellDelegate {
     
-    func downloadStarted(_ cell: MainDocumentCell) {
+    func downloadStarted(_ cell: DocumentCell) {
         if isOffline() {
             return
         }
@@ -167,7 +172,7 @@ extension MainViewController: DocumentCellDelegate {
         }
     }
     
-    func donloadCancelled(_ cell: MainDocumentCell) {
+    func donloadCancelled(_ cell: DocumentCell) {
         if let indexPath = tableView.indexPath(for: cell) {
             dataManager.cancelDownloadingDocument(withIndex: indexPath.row)
             tableView.reloadRows(at: [indexPath], with: .none)
@@ -175,7 +180,7 @@ extension MainViewController: DocumentCellDelegate {
     }
 }
 
-extension MainViewController: UITableViewDelegate {
+extension FilesContainingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -221,23 +226,18 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-extension MainViewController: UIDocumentInteractionControllerDelegate {
+// MARK: - Other delegates
+
+extension FilesContainingViewController: UIDocumentInteractionControllerDelegate {
     
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate {
+extension FilesContainingViewController: UIPopoverPresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
-    }
-}
-
-extension MainViewController: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        dataManager.applyFilterWithSearch(text: searchController.searchBar.text!)
     }
 }

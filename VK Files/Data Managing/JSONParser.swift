@@ -10,10 +10,9 @@ import Foundation
 
 class JSONParser {
     
-    let decoder: JSONDecoder
+    let decoder = JSONDecoder()
     
     init() {
-        decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     

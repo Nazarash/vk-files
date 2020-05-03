@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DocType: Int, Codable {
+enum DocType: Int, Codable, CaseIterable {
     case textDoc = 1
     case archive
     case gif
@@ -17,25 +17,9 @@ enum DocType: Int, Codable {
     case video
     case book
     case other
-}
-
-typealias DocumentID = Int
-
-class VkDocument: Codable {
-    
-    let id: DocumentID
-    let title: String
-    let size: Int
-    let ext: String
-    let url: URL
-    let creationDate: Date
-    let type: DocType
-    var rawPreviews: VkDocPreview?
-    
-    var downloadState = DownloadState.notDownloaded
     
     var systemImageName: String {
-        switch type {
+        switch self {
         case .textDoc:
             return "doc.text.fill"
         case .archive:
@@ -54,6 +38,43 @@ class VkDocument: Codable {
             return "questionmark.square.fill"
         }
     }
+    
+    var description: String {
+        switch self {
+        case .textDoc:
+            return "Text documents"
+        case .archive:
+            return "Archives"
+        case .gif:
+            return "GIFs"
+        case .image:
+            return "Pictures"
+        case .audio:
+            return "Audio"
+        case .video:
+            return "Video"
+        case .book:
+            return "Books"
+        default:
+            return "Other files"
+        }
+    }
+}
+
+typealias DocumentID = Int
+
+class VkDocument: Codable {
+    
+    let id: DocumentID
+    let title: String
+    let size: Int
+    let ext: String
+    let url: URL
+    let creationDate: Date
+    let type: DocType
+    var rawPreviews: VkDocPreview?
+    
+    var downloadState = DownloadState.notDownloaded
     
     var preview: URL? {
         get {

@@ -20,6 +20,7 @@ enum SortMethods: String, CaseIterable {
     case typeAscending = "Type A→Z"
     case typeDescending = "Type Z→A"
     
+    
     var method: ComparingMethod {
         switch self {
         case .titleAscending:
@@ -40,5 +41,27 @@ enum SortMethods: String, CaseIterable {
             return { $0.ext > $1.ext }
         }
     }
+    
+    var descriptor: NSSortDescriptor {
+        switch self {
+        case .titleAscending:
+            return NSSortDescriptor(key: "title", ascending: true)
+        case .titleDescending:
+            return NSSortDescriptor(key: "title", ascending: false)
+        case .dateAscending:
+            return NSSortDescriptor(key: "creationDate", ascending: true)
+        case .dateDescending:
+            return NSSortDescriptor(key: "creationDate", ascending: false)
+        case .sizeAscending:
+            return NSSortDescriptor(key: "size", ascending: true)
+        case .sizeDescending:
+            return NSSortDescriptor(key: "size", ascending: false)
+        case .typeAscending:
+            return NSSortDescriptor(key: "type", ascending: true)
+        case .typeDescending:
+            return NSSortDescriptor(key: "type", ascending: false)
+        }
+    }
+    
     
 }

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MainDocumentCell: UITableViewCell {
+class DocumentCell: UITableViewCell {
     
-    static let identifier = "MainDocumentCell"
+    static let identifier = "DocumentCell"
     
     @IBOutlet weak var previewImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -22,16 +22,21 @@ class MainDocumentCell: UITableViewCell {
     
     var delegate: DocumentCellDelegate?
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
     override func prepareForReuse() {
+        super.prepareForReuse()
+        
         previewImage.image = nil
     }
     
     func configure(with document: VkDocument) {
-        previewImage.image = UIImage(systemName: document.systemImageName)
+        previewImage.image = UIImage(systemName: document.type.systemImageName)
         previewImage.loadImage(from: document.preview)
         titleLabel.text = document.title
         detailsLabel.text = ByteCountFormatter.string(fromByteCount: Int64(document.size), countStyle: .file)
-        
         setAppearance(for: document.downloadState)
     }
     
@@ -41,15 +46,21 @@ class MainDocumentCell: UITableViewCell {
         switch state {
         case .notDownloaded:
             progressBar.isHidden = true
+            progressBar.setProgress(0, animated: false)
             downloadButton.isHidden = false
-            downloadButton.setImage(UIImage(systemName: "arrow.down.to.line.alt"), for: .normal)
+            switch NetworkService.state {
+            case .online:
+                downloadButton.setImage(UIImage(systemName: "arrow.down.to.line.alt"), for: .normal)
+            case .offline:
+                downloadButton.setImage(UIImage(systemName: "cloud"), for: .normal)
+            }
         case .downloading:
             progressBar.isHidden = false
-            progressBar.setProgress(0, animated: false)
             downloadButton.isHidden = false
             downloadButton.setImage(UIImage(systemName: "stop.circle"), for: .normal)
         case .downloaded:
             progressBar.isHidden = true
+            progressBar.setProgress(0, animated: false)
             downloadButton.isHidden = true
         }
     }

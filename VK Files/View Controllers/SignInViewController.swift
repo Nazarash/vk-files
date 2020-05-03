@@ -11,12 +11,11 @@ import VKSdkFramework
 
 class SignInViewController: UIViewController {
     
-    var authService: AuthService!
+    var authService = AuthService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        authService = AuthService.shared
         authService.delegate = self
     }
 

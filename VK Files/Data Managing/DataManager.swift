@@ -14,32 +14,36 @@ class DataManager: NSObject {
     private var rawDocuments = [VkDocument]()
     private var filteredDocuments = [VkDocument]()
     private var filterApplied = false
+    private var isUpdating = false
+    
     private var documents: [VkDocument] {
         return filterApplied ? filteredDocuments : rawDocuments
     }
-    
     private var indexOf = [VkDocument: Int]()
     private var sortMethod: SortMethods!
     
-    private var queryService: QueryService!
-    private var fileService: FileService!
+    private var queryService =  QueryService()
+    private var fileService =  FileService()
     private var downloadService: DownloadService!
     private var coreDataManager = CoreDataManager.shared
     
     weak var delegate: DataManagerDelegate!
     
+    // MARK: - Initialization
+    
     override init() {
         super.init()
         
-        queryService = QueryService()
-        fileService = FileService()
         downloadService = DownloadService(sessionDelegate: self)
         
         let savedMethod = UserDefaults.standard.string(forKey: "sortMethod")
         sortMethod = SortMethods.init(rawValue: savedMethod ?? SortMethods.dateDescending.rawValue)
         
-        rawDocuments = coreDataManager.getDocuments(sorted: true)
+        rawDocuments = coreDataManager.getDocuments(using: sortMethod)
+        self.updateDocumentIndices()
     }
+    
+    // MARK: - Actions with data
     
     func getDocument(withIndex index: Int) -> VkDocument {
         return documents[index]
@@ -58,11 +62,9 @@ class DataManager: NSObject {
         }
     }
     
-    func removeFromStorageDocument(withIndex index: Int) {
-        fileService.removeDocument(documents[index])
-    }
-    
-    func updateContent() {
+    func updateData() {
+        if isUpdating || !downloadService.activeDownloads.isEmpty { return }
+        isUpdating = true
         queryService.getDocuments() { result in
             switch result {
             case .success(let docs):
@@ -72,9 +74,8 @@ class DataManager: NSObject {
                     self.sortData()
                 }
                 self.updateDocumentIndices()
-                self.delegate.updateContent()
                 DispatchQueue.global(qos: .background).async {
-                    CoreDataManager.shared.sync(withLoaded: docs)
+                    self.coreDataManager.sync(withLoaded: docs)
                 }
             case .failure(let error):
                 if NetworkService.state == .online {
@@ -82,6 +83,8 @@ class DataManager: NSObject {
                     NetworkService.state = .offline
                 }
             }
+            self.delegate.updateContent()
+            self.isUpdating = false
         }
     }
     
@@ -93,6 +96,13 @@ class DataManager: NSObject {
         indexOf = newIndices
     }
     
+    func sortData() {
+        rawDocuments.sort(by: sortMethod.method)
+        filteredDocuments.sort(by: sortMethod.method)
+    }
+    
+    // MARK: - Actions with documents
+    
     func renameDocument(withIndex index: Int, newName: String) {
         let document = documents[index]
         queryService.renameDocument(id: document.id, newName: newName) { result in
@@ -100,7 +110,7 @@ class DataManager: NSObject {
             case .success:
                 self.fileService.renameDocument(document, newName: newName)
                 self.coreDataManager.renameDocument(document)
-                self.updateContent()
+                self.updateData()
             case .failure(let error):
                 self.delegate.reportError(with: error.localizedDescription)
             }
@@ -114,11 +124,15 @@ class DataManager: NSObject {
             case .success:
                 self.fileService.removeDocument(document)
                 self.coreDataManager.deleteDocument(document)
-                self.updateContent()
+                self.updateData()
             case .failure(let error):
                 self.delegate.reportError(with: error.localizedDescription)
             }
         }
+    }
+    
+    func removeFromStorageDocument(withIndex index: Int) {
+        fileService.removeDocument(documents[index])
     }
     
     func startDownloadingDocument(withIndex index: Int) {
@@ -129,9 +143,7 @@ class DataManager: NSObject {
         downloadService.cancelDownload(documents[index])
     }
     
-    func sortData() {
-        rawDocuments.sort(by: sortMethod.method)
-    }
+    // MARK: - Actions with displayed data
     
     func applySortMethod(_ sortMethod: SortMethods) {
         self.sortMethod = sortMethod
@@ -151,7 +163,20 @@ class DataManager: NSObject {
         updateDocumentIndices()
         delegate.updateContent()
     }
+    
+    func applyFilterWithType(type: DocType?) {
+        if let type = type {
+            filteredDocuments = rawDocuments.filter { $0.type == type }
+            filterApplied = true
+        } else {
+            filterApplied = false
+        }
+        updateDocumentIndices()
+        delegate.updateContent()
+    }
 }
+
+// MARK: - Implementing delegates
 
 extension DataManager: UITableViewDataSource {
     
@@ -160,7 +185,7 @@ extension DataManager: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainDocumentCell.identifier, for: indexPath) as! MainDocumentCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DocumentCell.identifier, for: indexPath) as! DocumentCell
         fileService.ensureDownloaded(document: documents[indexPath.row])
         cell.delegate = delegate as? DocumentCellDelegate
         cell.configure(with: documents[indexPath.row])

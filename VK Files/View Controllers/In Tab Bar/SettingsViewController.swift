@@ -45,6 +45,7 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func clearStorageAction(_ sender: Any) {
         fileService.removeAlldocuments()
+        showAlert(name: "Done", with: "All local files are removed")
     }
     
     @IBAction func logOutAction(_ sender: Any) {
@@ -52,7 +53,7 @@ class SettingsViewController: UITableViewController {
         UserDefaults.standard.removeObject(forKey: "sortMethod")
         coreDataManager.clearDatabase()
         VKSdk.forceLogout()
-        let signInVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "SignInVC")
+        let signInVC = UIViewController.initFromStoryboard(id: .SignInVC)
         AppDelegate.getInstance().window?.rootViewController = signInVC
     }
 }

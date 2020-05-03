@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias VkResponseCode = Int
+
 struct VkDocsGetWrappedResponse: Codable {
     let response: VKDocsGetResponse
 }
@@ -44,5 +46,5 @@ struct VkError: Codable {
 }
 
 struct VkActionResponse: Codable {
-    let response: Int
+    let response: VkResponseCode
 }

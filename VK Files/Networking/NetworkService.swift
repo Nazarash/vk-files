@@ -8,14 +8,31 @@
 
 import Foundation
 
-class NetworkService {
+enum NetworkError: Error {
+    case queryError
+    case vkError
+    case parsingError
+    case unknownError
     
-    enum NetworkState {
-        case online
-        case offline
+    var localizedDescription: String? {
+        switch self {
+        case .queryError:
+            return "Error while connecting to server"
+        case .vkError:
+            return "Error on VK server"
+        case .parsingError:
+            return "Error while parsing data"
+        default:
+            return "Something went wrong"
+        }
     }
-    
+}
+
+enum NetworkState {
+    case online
+    case offline
+}
+
+class NetworkService {
     static var state: NetworkState = .online
-    
-    
 }

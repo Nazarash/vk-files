@@ -19,16 +19,18 @@ class QueryService {
     private let methodPath = "/method/"
     private var commonParameters = [String: String]()
     
-    private let defaultSession = URLSession(configuration: .default)
+    private var urlSession: URLSession!
     private var dataTask: URLSessionDataTask?
-    private let parser: JSONParser
+    private let parser = JSONParser()
     
     
     init() {
         commonParameters["access_token"] = VKSdk.accessToken()?.accessToken
         commonParameters["v"] = version
         
-        parser = JSONParser()
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5
+        urlSession = URLSession(configuration: sessionConfig)
     }
     
     func getDocuments(completion: @escaping Completion<[VkDocument]>) {
@@ -63,13 +65,10 @@ class QueryService {
     
     func makeRequest<T>(path: URL, type: T.Type, completion: @escaping Completion<T>) {
         dataTask?.cancel()
-        
-        dataTask = defaultSession.dataTask(with: path) { [weak self] data, response, error in
-            
+        dataTask = urlSession.dataTask(with: path) { [weak self] data, response, error in
             defer {
                 self?.dataTask = nil
             }
-            
             if let error = error {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
@@ -82,7 +81,7 @@ class QueryService {
                         completion(self!.parser.parseDocuments(data) as! Result<T, NetworkError>)
                     case is User.Type:
                         completion(self!.parser.parseUser(data) as! Result<T, NetworkError>)
-                    case is Int.Type:
+                    case is VkResponseCode.Type:
                         completion(self!.parser.parseAction(data) as! Result<T, NetworkError>)
                     default:
                         completion(.failure(NetworkError.unknownError))

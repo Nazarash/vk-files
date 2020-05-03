@@ -83,10 +83,10 @@ class CoreDataManager {
     
     // MARK: - Data operations
     
-    func getDocuments(sorted: Bool = false) -> [VkDocument] {
+    func getDocuments(using sortMethod: SortMethods? = nil) -> [VkDocument] {
         let request: NSFetchRequest<DocumentEntity> = DocumentEntity.fetchRequest()
-        if sorted {
-            request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        if let sortDescriptor = sortMethod?.descriptor {
+            request.sortDescriptors = [sortDescriptor]
         }
         guard let fetchedDocuments = try? context.fetch(request) else { return []}
         return fetchedDocuments.map{ (entity: DocumentEntity) in VkDocument(entity: entity) }

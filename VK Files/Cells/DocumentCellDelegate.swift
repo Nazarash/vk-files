@@ -10,7 +10,7 @@ import Foundation
 
 protocol DocumentCellDelegate {
     
-    func downloadStarted(_ cell: MainDocumentCell)
+    func downloadStarted(_ cell: DocumentCell)
     
-    func donloadCancelled(_ cell: MainDocumentCell)
+    func donloadCancelled(_ cell: DocumentCell)
 }
