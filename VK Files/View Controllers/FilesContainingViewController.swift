@@ -33,14 +33,13 @@ class FilesContainingViewController: UIViewController { // Abstract class for an
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
-        
-        documentInteractionController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         dataManager.delegate = self
+        documentInteractionController.delegate = self
     }
     
     // MARK: - Updating data

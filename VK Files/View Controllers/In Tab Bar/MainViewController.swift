@@ -28,6 +28,7 @@ class MainViewController: FilesContainingViewController {
         super.viewWillAppear(animated)
         
         dataManager.updateData()
+        dataManager.applyFilterWithType(type: nil)
     }
 }
 

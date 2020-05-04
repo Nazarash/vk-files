@@ -16,10 +16,4 @@ class FilteredFilesViewController: FilesContainingViewController {
         super.viewWillAppear(animated)
         dataManager.applyFilterWithType(type: category)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        dataManager.applyFilterWithType(type: nil)
-    }
-
 }
