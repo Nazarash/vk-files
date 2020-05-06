@@ -24,9 +24,9 @@ enum SortMethods: String, CaseIterable {
     var method: ComparingMethod {
         switch self {
         case .titleAscending:
-            return { $0.title < $1.title }
+            return { $0.title.lowercased() < $1.title.lowercased() }
         case .titleDescending:
-            return { $0.title > $1.title }
+            return { $0.title.lowercased() > $1.title.lowercased() }
         case .dateAscending:
             return { $0.creationDate < $1.creationDate }
         case .dateDescending:

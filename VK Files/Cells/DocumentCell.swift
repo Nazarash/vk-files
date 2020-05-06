@@ -33,8 +33,12 @@ class DocumentCell: UITableViewCell {
     }
     
     func configure(with document: VkDocument) {
+        previewImage.contentMode = .scaleAspectFit
         previewImage.image = UIImage(systemName: document.type.systemImageName)
-        previewImage.loadImage(from: document.preview)
+        if let photo_preview = document.preview {
+            previewImage.contentMode = .scaleAspectFill
+            previewImage.loadImage(from: photo_preview)
+        }
         titleLabel.text = document.title
         detailsLabel.text = ByteCountFormatter.string(fromByteCount: Int64(document.size), countStyle: .file)
         setAppearance(for: document.downloadState)
