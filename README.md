@@ -22,5 +22,5 @@ VK file manager
 
 ### Скриншоты:
 
-<img src="./Screenshots/1.png" width="420" /> <img src="./Screenshots/2.png" width="420" />
-<img src="./Screenshots/3.png" width="420" /> <img src="./Screenshots/4.png" width="420" />
+<img src="./Screenshots/1.png" width="450" /> <img src="./Screenshots/2.png" width="450" />
+<img src="./Screenshots/3.png" width="450" /> <img src="./Screenshots/4.png" width="450" />
