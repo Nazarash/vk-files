@@ -30,6 +30,7 @@ class DocumentCell: UITableViewCell {
         super.prepareForReuse()
         
         previewImage.image = nil
+        progressBar.setProgress(0, animated: false)
     }
     
     func configure(with document: VkDocument) {
@@ -70,7 +71,7 @@ class DocumentCell: UITableViewCell {
     }
     
     func setDownloadProgress(_ progress: Float) {
-        progressBar.setProgress(progress, animated: true)
+        progressBar.setProgress(progress, animated: progressBar.progress != 0)
     }
     
     @IBAction func downloadAction(_ sender: Any) {
